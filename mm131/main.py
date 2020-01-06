@@ -1,6 +1,6 @@
 import time
 
-from lib.parser import Mm131Parser
+from mm131.lib.parser import Mm131Parser
 
 
 def start(path='mm131/', page=None):
@@ -12,4 +12,5 @@ def start(path='mm131/', page=None):
 
 
 if __name__ == '__main__':
-    start('list_6_4.html')
+    start()
+    # start(page='list_6_4.html')
