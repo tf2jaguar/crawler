@@ -148,6 +148,15 @@ class Mm131Parser:
         with ThreadPoolExecutor(works) as actuator:
             actuator.map(self.get_one, [str(img_id) + "-" + img_title for (img_id, img_title) in ids_titles.items()])
 
+    # TODO 目前服务器内部错误，待解决。
+    def search(self, key):
+        url = 'https://m.mm131.net/search.php'
+        data = {'keytext': key}
+        rep = requests.post(url=url, data=data, headers=self.set_header(''))
+        rep.encoding = 'GBK'
+        content = etree.HTML(rep.text)
+        print(content)
+
     @staticmethod
     def get_last_task(folder, default=10000):
         """
@@ -164,7 +173,7 @@ class Mm131Parser:
 
 
 if __name__ == '__main__':
-    parser = Mm131Parser
+    parser = Mm131Parser()
     parser.get_page()
     # parser.get_page(page='list_6_3.html')
     print()
