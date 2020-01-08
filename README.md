@@ -12,4 +12,4 @@
 
 - movie 从一些资源站搜索并抓取影视的下载连接，部分支持在线观看。目前收录15个资源站。
 
-![crawler-ziyuanzhan](https://github.com/jelly54/crawler/blob/master/img/crawler-ziyuanzhan.jpg){:height="320px" width="400px"}
+![l2Tu6S.jpg](https://s2.ax1x.com/2020/01/08/l2Tu6S.jpg)
