@@ -28,11 +28,11 @@ root@localhost:~/mm131$ python main.py
 ```
 5. 稍后您将会看到抓取过程中的输出，并在 *mm131* 文件夹中看到抓取到的picture。
 
-![l2TCOe.png](https://upload-images.jianshu.io/upload_images/12361519-f3abced14dc6f406.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![l2TCOe.png](https://s2.ax1x.com/2020/01/08/l2TCOe.png)
 
-![l2TieH.png](https://upload-images.jianshu.io/upload_images/12361519-f045050bff522652.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![l2TieH.png](https://s2.ax1x.com/2020/01/08/l2TieH.png)
 
-![l2T9yD.png](https://upload-images.jianshu.io/upload_images/12361519-f4c4cf3415d7cb48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![l2T9yD.png](https://s2.ax1x.com/2020/01/08/l2T9yD.png)
 
 ## 脚本思路
 
