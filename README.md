@@ -10,12 +10,6 @@
 
 - mm131 抓取xinggan分类下的所有图片。支持并行下载。
 
-![crawler-mm131-1](https://github.com/jelly54/crawler/blob/master/img/crawler-mm131-1.png){:height="320px" width="400px"}
-
-![crawler-mm131-2](https://github.com/jelly54/crawler/blob/master/img/crawler-mm131-2.png){:height="320px" width="400px"}
-
-![crawler-mm131-3](https://github.com/jelly54/crawler/blob/master/img/crawler-mm131-3.png){:height="320px" width="400px"}
-
 - movie 从一些资源站搜索并抓取影视的下载连接，部分支持在线观看。目前收录15个资源站。
 
 ![crawler-ziyuanzhan](https://github.com/jelly54/crawler/blob/master/img/crawler-ziyuanzhan.jpg){:height="320px" width="400px"}
