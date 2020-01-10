@@ -1,5 +1,7 @@
 # Mm131Parser
 
+[源码地址](https://github.com/jelly54/crawler/tree/master/mm131)
+
 ## 环境
 
 - python 3.6
@@ -28,11 +30,11 @@ root@localhost:~/mm131$ python main.py
 ```
 5. 稍后您将会看到抓取过程中的输出，并在 *mm131* 文件夹中看到抓取到的picture。
 
-![l2TCOe.png](https://s2.ax1x.com/2020/01/08/l2TCOe.png)
+![l2TCOe.png](https://upload-images.jianshu.io/upload_images/12361519-f3abced14dc6f406.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![l2TieH.png](https://s2.ax1x.com/2020/01/08/l2TieH.png)
+![l2TieH.png](https://upload-images.jianshu.io/upload_images/12361519-f045050bff522652.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![l2T9yD.png](https://s2.ax1x.com/2020/01/08/l2T9yD.png)
+![l2T9yD.png](https://upload-images.jianshu.io/upload_images/12361519-f4c4cf3415d7cb48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 脚本思路
 
@@ -88,7 +90,7 @@ if (!_out) {
 
 #### 获取首页中主题ID、title
 
-访问 (http://www.mm131.net/xinggan/)[http://www.mm131.net/xinggan/] 后会获取最新的20个主题的 ID以及title，这个将会用作下一步获取主题picture。
+访问 [http://www.mm131.net/xinggan/](http://www.mm131.net/xinggan/) 后会获取最新的20个主题的 ID以及title，这个将会用作下一步获取主题picture。
 通过lxml 的 etree 对html进行定位和解析，最终获取到 id和title。详情可见 [parser.py](https://github.com/jelly54/crawler/blob/2cf966fb313dbaf64ded98756011f725dfde0b84/mm131/lib/parser.py#L35) 中的 **_ids_titles()** 方法。
 
 ### 获取一个主题的所有picture链接
@@ -112,11 +114,5 @@ if (!_out) {
 
 欢迎大家访问，留下你的脚印。
 
-<i class="fab fa-github fa-lg"></i> [https://github.com/jelly54](https://github.com/jelly54)
-<i class="fab fa-tripadvisor fa-lg"></i>  [https://jelly54.github.io](https://jelly54.github.io)
-
-<head>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script>
-</head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+- github: [https://github.com/jelly54](https://github.com/jelly54)
+- blog:  [https://jelly54.github.io](https://jelly54.github.io)
