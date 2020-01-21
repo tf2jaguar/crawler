@@ -1,5 +1,6 @@
 import os
 from concurrent.futures import ThreadPoolExecutor
+from urllib.parse import quote
 
 import requests
 from lxml import etree
@@ -53,6 +54,25 @@ class Mm131Parser:
                 latest_id = hrefs[index][-9:-5]
                 page_ids_title[latest_id] = title
             return page_ids_title
+        except Exception as e:
+            print(e)
+
+    def _ids_titles_for_search(self, key, page='1'):
+        key = quote(key.encode('GBK'), 'utf-8')
+        url = 'https://www.mm131.net/search/?key=%s&page=%s' % (key, page)
+        try:
+            rep = requests.get(url=url, headers=self.set_header(''))
+            rep.encoding = 'GBK'
+            content = etree.HTML(rep.text)
+            hrefs = content.xpath('//div[@class="listbox"]//li/a[2]/@href')
+            titles = content.xpath('//div[@class="listbox"]//li/a[2]/text()')
+            page_count = str(content.xpath('//div[@class="dede_pages"]//a/text()')[-2]).replace('...', '')
+
+            page_ids_title = {}
+            for index, title in enumerate(titles):
+                latest_id = hrefs[index][-9:-5]
+                page_ids_title[latest_id] = title
+            return page_ids_title, page_count
         except Exception as e:
             print(e)
 
@@ -148,14 +168,19 @@ class Mm131Parser:
         with ThreadPoolExecutor(works) as actuator:
             actuator.map(self.get_one, [str(img_id) + "-" + img_title for (img_id, img_title) in ids_titles.items()])
 
-    # TODO 目前服务器内部错误，待解决。
-    def search(self, key):
-        url = 'https://m.mm131.net/search.php'
-        data = {'keytext': key}
-        rep = requests.post(url=url, data=data, headers=self.set_header(''))
-        rep.encoding = 'GBK'
-        content = etree.HTML(rep.text)
-        print(content)
+    def search_page(self, key):
+        """
+        下载指定主题下的所有picture。（单进程）
+        :param key: 主题名称
+        :return:
+        """
+        print('search %s' % key)
+        ids_titles, page_count = self._ids_titles_for_search(key=key)
+        for page in range(2, int(page_count)):
+            for (img_id, img_title) in ids_titles.items():
+                self.get_one(str(img_id) + "-" + img_title)
+            ids_titles, _count = self._ids_titles_for_search(key=key, page=str(page))
+        print('search %s done.' % key)
 
     @staticmethod
     def get_last_task(folder, default=10000):
@@ -174,6 +199,15 @@ class Mm131Parser:
 
 if __name__ == '__main__':
     parser = Mm131Parser()
+    # 使用并行下载
+    parser.use_parallel = True
+
+    # 下载最新页中的主题
     parser.get_page()
-    # parser.get_page(page='list_6_3.html')
+
+    # 下载除最新页之后的其他页面 2~270
+    # parser.get_page(page='list_6_2.html')
+
+    # 下载指定主题的picture
+    # parser.search_page('周妍希')
     print()
