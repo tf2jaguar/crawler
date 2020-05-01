@@ -5,8 +5,6 @@ import time
 
 import requests
 
-from dongchedi.lib import MysqlTool
-
 
 def save_data(data_url, data_name, file_path, lable):
     """
@@ -105,9 +103,8 @@ def get_car_id(str):
 
 
 def get_lable(series_id):
-    mysql = MysqlTool()
-    exe_sql = "SELECT id FROM car_series WHERE series_id = '" + series_id + "';"
-    return MysqlTool.execute(exe_sql)[1][0][0]
+    # TODO
+    pass
 
 
 def generate_train_test_txt():
