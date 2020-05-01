@@ -7,9 +7,10 @@ from lxml import etree
 
 
 class Mm131Parser:
-    def __init__(self, save_path='../mm131/', use_parallel=True):
+    def __init__(self, save_path='../mm131/', use_parallel=True, save=True):
         self.base_url = 'http://www.mm131.net/xinggan/'
         self.save_path = save_path
+        self.save = save
         self.use_parallel = use_parallel
 
     def set_header(self, referer):
@@ -120,7 +121,7 @@ class Mm131Parser:
         """
         img_id = img_id_title.split('-')[0]
         title = img_id_title.split('-')[1]
-        print('get %s' % title)
+        print('get %s-%s' % (img_id,title))
         one_urls = self._one_urls(img_id)
         for url in one_urls:
             folder, name = img_id_title, url.split("/")[5]
@@ -129,7 +130,8 @@ class Mm131Parser:
             if resp.status_code == 404:
                 print('404 not found!')
             elif resp.status_code == 200:
-                self.__save(pic, folder, name)
+                if self.save:
+                    self.__save(pic, folder, name)
         print('title %s done.' % title)
 
     def get_page(self, page=None):
@@ -201,13 +203,18 @@ if __name__ == '__main__':
     parser = Mm131Parser()
     # 使用并行下载
     parser.use_parallel = True
+    # 是否保存
+    # parser.save = False
 
     # 下载最新页中的主题
-    parser.get_page()
+    # parser.get_page()
 
     # 下载除最新页之后的其他页面 2~270
     # parser.get_page(page='list_6_2.html')
 
-    # 下载指定主题的picture
+    # 获取指定主题
+    parser.get_one('5456-美女小护士安然肉丝美腿退烧治病')
+
+    # 搜索下载指定主题的picture
     # parser.search_page('周妍希')
     print()
