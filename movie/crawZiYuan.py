@@ -8,24 +8,19 @@ from lxml import etree
 
 class MysqlTool:
 
-    def __init__(self, host='localhost', port=3306, user='root', passwd='123456', db='craw', charset='utf8'):
+    def __init__(self, host='localhost', port=3306, user='root', passwd='123456', db='test', charset='utf8'):
         import pymysql
         self.conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db, charset=charset)
 
     def execute(self, exe_sql):
-        import time
-        exe_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        log = open("mysql_log.txt", "a", encoding='utf-8')
         res = None
         cur = self.conn.cursor()
         try:
             status = cur.execute(exe_sql)
             self.conn.commit()
             res = status, cur.fetchall()
-            log.writelines(exe_time + " " + exe_sql + "\n" + str(res) + "\n")
         except Exception as e:
             print(e)
-            log.writelines(exe_time + " " + exe_sql + "\n" + str(e) + "\n")
             self.conn.rollback()
         finally:
             cur.close()
