@@ -87,12 +87,14 @@ class Mm131Parser:
 
         rep = requests.get(url, headers=self.set_header(''))
         rep.encoding = 'GBK'
+        separator = 'pic/'
         content = etree.HTML(rep.text)
         count = content.xpath('//span[@class="page-ch"]/text()')[0][1:-1]
+        uri = str(content.xpath('//div[@class="content-pic"]/a/img/@src')[0]).split(separator)[0] + separator
 
         img_urls = []
         for i in range(int(count)):
-            _img_url = 'https://img1.mmmw.net/pic/' + str(img_id) + '/' + str(i) + '.jpg'
+            _img_url = ''.join([uri, str(img_id), '/', str(i), '.jpg'])
             img_urls.append(_img_url)
         return img_urls
 
@@ -121,7 +123,7 @@ class Mm131Parser:
         """
         img_id = img_id_title.split('-')[0]
         title = img_id_title.split('-')[1]
-        print('get %s-%s' % (img_id,title))
+        print('get %s-%s' % (img_id, title))
         one_urls = self._one_urls(img_id)
         for url in one_urls:
             folder, name = img_id_title, url.split("/")[5]
@@ -213,7 +215,7 @@ if __name__ == '__main__':
     # parser.get_page(page='list_6_2.html')
 
     # 获取指定主题
-    parser.get_one('5456-美女小护士安然肉丝美腿退烧治病')
+    parser.get_one('5654-风情御姐优优美腿高跟裸露诱惑你')
 
     # 搜索下载指定主题的picture
     # parser.search_page('周妍希')
