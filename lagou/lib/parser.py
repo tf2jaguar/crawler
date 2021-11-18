@@ -5,7 +5,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import pdfkit
 import requests
 import tomd
-from Crypto.Cipher import AES
+
+
+# from Crypto.Cipher import AES
 
 
 class LaGouParser:
@@ -58,14 +60,18 @@ class LaGouParser:
         return self.task_queue
 
     def _save_article(self, _url, _name, _save):
-        html = requests.get(url=_url, timeout=10, headers=self._get_header()).text
+        try:
+            html = requests.get(url=_url, timeout=10, headers=self._get_header()).text
+        except BaseException:
+            print("has exception ", _save + _name, _url)
+            return "exception: " + _save + _name
         article_msg = json.loads(html)
         str_html = str(article_msg['content']['textContent'])
         if self.article2pdf:
             self.html2pdf(str_html, _name, _save)
         if self.article2md:
             self.html2markdown(str_html, _name, _save)
-        return _name
+        return _save + _name
 
     @staticmethod
     def html2pdf(_html, _name, _save):
@@ -73,6 +79,7 @@ class LaGouParser:
             'page-size': 'A4',  # Letter
             'encoding': "UTF-8",
             'no-outline': None,
+            'log-level': 'warn',
             'custom-header': [('Accept-Encoding', 'gzip')]
         }
         file_dest = LaGouParser.check_file_dir("pdf", _save, _name)
@@ -110,7 +117,8 @@ class LaGouParser:
         player_list = []
         write_path = _save + _name + self.file_sep
         key = self.__parse_m3u8(_url, player_list)
-        crypto = AES.new(key, AES.MODE_CBC, key)
+        # crypto = AES.new(key, AES.MODE_CBC, key)
+        crypto = ''
 
         for index, ts in enumerate(player_list):
             if not os.path.exists(write_path):
@@ -160,7 +168,7 @@ class LaGouParser:
 
         for future in as_completed(all_task):
             data = future.result()
-            print("in main: get page {} success".format(data))
+            print("get {} success".format(data))
 
     def _parallel_save_video(self, works=16):
         """
@@ -205,8 +213,8 @@ class Task:
 
 if __name__ == '__main__':
     lg = LaGouParser()
-    lg.cookie = 'edu_gate_login'
-    lg.course_ids = '455,516,257,31,447,16,478,158,5,356,64,59,9,592,612'
+    lg.cookie = 'edu_gate_login_token=$$$EDU_exx'
+    lg.course_ids = '1,753'
     lg.download_article = True
     lg.article2md = True
     lg.article2pdf = True
