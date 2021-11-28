@@ -1,0 +1,2 @@
+10 9 * * * sh ~/Pictures/BingWallpaper/bin/bingWallpaper.sh >> ~/Pictures/BingWallpaper/log/cron_log.log
+30 10 * * * sh ~/Pictures/BingWallpaper/bin/bingWallpaper.sh >> ~/Pictures/BingWallpaper/log/cron_log.log
