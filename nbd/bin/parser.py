@@ -96,7 +96,7 @@ def python_schedule(_time_tile_dict):
 
 if __name__ == '__main__':
     # 方法一：使用python 内置定时任务
-    time_tile_dict = {'6:00': '早财经', '12:00': '每经午时'}
+    time_tile_dict = {'06:00': '早财经', '12:00': '每经午时'}
     python_schedule(time_tile_dict)
 
     # 方法二：结合操作系统的定时任务，直接执行 job
