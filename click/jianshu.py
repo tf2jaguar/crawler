@@ -9,27 +9,27 @@ from tqdm import trange, tqdm
 article_list = [
     {
         'article_id': 'f39544e6b3ae',
-        'view_count': random.randint(1000, 1500),
+        'view_count': random.randint(1000, 4000),
     },
     {
         'article_id': '3b7ffc809eca',
-        'view_count': random.randint(1000, 1500),
+        'view_count': random.randint(1000, 4000),
     },
     {
         'article_id': '7ff691cd028e',
-        'view_count': random.randint(1000, 1500),
+        'view_count': random.randint(1000, 4000),
     },
     {
         'article_id': '8d0d4c35f6ff',
-        'view_count': random.randint(1000, 1500),
+        'view_count': random.randint(1000, 4000),
     },
     {
         'article_id': '4ddc8d67f2c8',
-        'view_count': random.randint(1000, 1500),
+        'view_count': random.randint(1000, 4000),
     },
     {
         'article_id': 'c158cd07bd37',
-        'view_count': random.randint(1000, 1500),
+        'view_count': random.randint(1000, 4000),
     }
 ]
 
@@ -45,10 +45,10 @@ def page_one(_item):
         'fuck': 1  # 好名字，并不会增加指定数值的阅读数
     }
 
-    # tqdm 进度条信息
     for _ in trange(_item['view_count'], desc=_item['article_id'], leave=True):
         try:
             response = requests.post(url=url, headers=headers, data=json.dumps(post_data), timeout=1)
+            time.sleep(0.3)
         except:
             time.sleep(1)
 

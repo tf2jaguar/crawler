@@ -13,6 +13,20 @@ import jsonpath
 from selenium.webdriver.chrome.options import Options
 import random
 
+default_url = {'https://blog.csdn.net/guodong54/article/details/120333178': 0,
+               'https://blog.csdn.net/guodong54/article/details/119577856': 0,
+               'https://blog.csdn.net/guodong54/article/details/107349914': 0,
+               'https://blog.csdn.net/guodong54/article/details/86423315': 0,
+               'https://blog.csdn.net/guodong54/article/details/79560097': 0,
+               'https://blog.csdn.net/guodong54/article/details/79186547': 0
+               }
+
+
+def print_dict(_dict):
+    for key, value in _dict.items():
+        print('{key}: {value}'.format(key=key, value=value))
+    print()
+
 
 class Csdn_click(object):
     def __init__(self):
@@ -72,20 +86,20 @@ class Csdn_click(object):
         self.driver.maximize_window()
 
         try:
-            #请求数据获取总的文章数
-            res = random.randint(1, 23)
-            response = requests.get(self.csdn_url, params=self.data, headers=self.headers[res])
-            print(response)
-            json_response = json.loads(response.text)
-            self.total_num = jsonpath.jsonpath(json_response, "$..total")[0]
-            # print(self.total_num)
-
-            #获取文章的链接地址列表
-            self.data["size"] = self.total_num
-            response = requests.get(self.csdn_url, params=self.data, headers=self.headers[res])
-            json_response = json.loads(response.text)
-            url_list = jsonpath.jsonpath(json_response, "$..url")
-            return url_list
+            # 请求数据获取总的文章数
+            # res = random.randint(1, 23)
+            # response = requests.get(self.csdn_url, params=self.data, headers=self.headers[res])
+            # # print(response)
+            # json_response = json.loads(response.text)
+            # self.total_num = jsonpath.jsonpath(json_response, "$..total")[0]
+            # # print(self.total_num)
+            #
+            # # 获取文章的链接地址列表
+            # self.data["size"] = self.total_num
+            # response = requests.get(self.csdn_url, params=self.data, headers=self.headers[res])
+            # json_response = json.loads(response.text)
+            # url_list = jsonpath.jsonpath(json_response, "$..url")
+            return list(default_url.keys())
         except Exception as e:
             print(e)
             self.exit()
@@ -94,13 +108,15 @@ class Csdn_click(object):
     def brower_html(self, url_list):
         try:
             for i in url_list:
-                print(i)
+                # print(i)
                 self.driver.get(i)
                 js = "return action=document.body.scrollHeight"
                 new_height = self.driver.execute_script(js)
-                sleep(0.5)
+                sleep(0.3)
                 for j in range(0, new_height, 300):
                     self.driver.execute_script('window.scrollTo(0, %s)' % (j))
+                default_url[i] = int(default_url[i]) + 1
+                print_dict(default_url)
         except Exception as e:
             print(e)
             self.exit()
@@ -108,14 +124,11 @@ class Csdn_click(object):
 
     def run(self):
         while True:
-
             url_list = self.get_urls()
-            print(url_list)
             self.brower_html(url_list)
             self.exit()
 
 
 if __name__ == '__main__':
-
     c = Csdn_click()
     c.run()
