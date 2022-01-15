@@ -5,6 +5,7 @@
 @File    : Csdn_click.py
 @Function: 模拟用户浏览页面，刷csdn的浏览量
 """
+import datetime
 from time import sleep
 from selenium import webdriver
 import requests
@@ -24,7 +25,8 @@ default_url = {'https://blog.csdn.net/guodong54/article/details/120333178': 0,
 
 def print_dict(_dict):
     for key, value in _dict.items():
-        print('{key}: {value}'.format(key=key, value=value))
+        time_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print('{time} {key}: {value}'.format(time=time_str, key=key, value=value))
     print()
 
 
@@ -49,7 +51,7 @@ class Csdn_click(object):
             {"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E)"},
             {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.41 Safari/535.1 QQBrowser/6.9.11079.201"},
             {"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)"}
-            ]
+        ]
         self.data = {
             "page": "1",
             "size": "20",
@@ -116,7 +118,7 @@ class Csdn_click(object):
                 for j in range(0, new_height, 300):
                     self.driver.execute_script('window.scrollTo(0, %s)' % (j))
                 default_url[i] = int(default_url[i]) + 1
-                print_dict(default_url)
+            print_dict(default_url)
         except Exception as e:
             print(e)
             self.exit()
