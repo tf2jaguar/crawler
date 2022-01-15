@@ -114,7 +114,7 @@ class Csdn_click(object):
                 self.driver.get(i)
                 js = "return action=document.body.scrollHeight"
                 new_height = self.driver.execute_script(js)
-                sleep(0.3)
+                sleep(0.5)
                 for j in range(0, new_height, 300):
                     self.driver.execute_script('window.scrollTo(0, %s)' % (j))
                 default_url[i] = int(default_url[i]) + 1
@@ -125,10 +125,12 @@ class Csdn_click(object):
             self.run()
 
     def run(self):
-        while True:
+        random_view_times = random.randint(600, 1200)
+        while random_view_times != 0:
             url_list = self.get_urls()
             self.brower_html(url_list)
             self.exit()
+            random_view_times = random_view_times - 1
 
 
 if __name__ == '__main__':
