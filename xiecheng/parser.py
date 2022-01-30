@@ -1,7 +1,7 @@
 import json
 import requests
 
-from xiecheng.dd_rob import DD_BOT
+from dd_rob import DD_BOT
 
 default_headers = {
     'authority': 'flights.ctrip.com',
@@ -54,10 +54,10 @@ class XC:
         req = self.request.post(self.query_plane_url, data=json.dumps(params), headers=headers)
         if req.status_code == 200:
             res_json = json.loads(req.text)
-            print("res: ", res_json)
+            # print("res: ", res_json)
             return res_json
         else:
-            print(req.status_code, req.text)
+            print("res: ", req.status_code, req.text)
             return None
 
     def get_useful_msg(self):
@@ -66,6 +66,9 @@ class XC:
         if plan_json:
             flightItineraryList = plan_json['data']['flightItineraryList']
             for fi in flightItineraryList:
+                # 过滤掉中转
+                if fi['flightSegments'][0]['transferCount'] != 0:
+                    continue
                 flightList = fi['flightSegments'][0]['flightList'][0]
                 priceList = fi['priceList']
                 if flightList['marketAirlineName'] != '中国国航':
