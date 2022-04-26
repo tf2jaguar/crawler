@@ -1,3 +1,12 @@
+<div align="center">  
+    <p>
+        <a href="https://jelly54.github.io"><img src="https://badgen.net/badge/jelly54/read?icon=sourcegraph&color=4ab8a1" alt="read" /></a>
+        <img src="https://badgen.net/github/stars/jelly54/crawler?icon=github&color=4ab8a1" alt="stars" />
+        <img src="https://badgen.net/github/forks/jelly54/crawler?icon=github&color=4ab8a1" alt="forks" />
+        <img src="https://badgen.net/github/open-issues/jelly54/crawler?icon=github" alt="issues" />
+    </p>
+</div>
+
 # Crawler
 
 有感而发写的爬虫脚本。欢迎 start 和 提 issues 呀
