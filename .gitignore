@@ -106,4 +106,4 @@ venv.bak/
 mm131/mm131
 lagou/lg
 
-*.DS_Store
+**.DS_Store
